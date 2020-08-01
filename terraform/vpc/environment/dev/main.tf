@@ -18,6 +18,9 @@ resource "aws_s3_bucket" "backend" {
 terraform {
   backend "s3" {
     bucket = "cloudgeeks-ca-backend"
+    key = "key_rotation.tfstate"
+    region = "us-east-1"
+
   }
 }
 
