@@ -5,16 +5,7 @@ provider "aws" {
 ### Backend ###
 # S3
 ###############
-resource "aws_s3_bucket" "backend" {
-  region = "us-east-1"
-  bucket = "cloudgeeks-ca-backend"
-  acl    = "private"
 
-  tags = {
-    Name        = "Terraform Backend"
-    Environment = "Dev"
-  }
-}
 
 data "terraform_remote_state" "network" {
   backend = "s3"
