@@ -9,7 +9,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "cloudgeeks-backend"
-    key = "key_rotation.tfstate"
+    key = "cloudgeeks.tfstate"
     region = "us-east-1"
   }
 }
