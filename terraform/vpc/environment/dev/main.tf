@@ -15,12 +15,12 @@ resource "aws_s3_bucket" "backend" {
   }
 }
 
-terraform {
-  backend "s3" {
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
     bucket = "cloudgeeks-ca-backend"
-    key = "key_rotation.tfstate"
+    key    = "network/terraform.tfstate"
     region = "us-east-1"
-
   }
 }
 
