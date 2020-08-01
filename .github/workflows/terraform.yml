@@ -16,10 +16,11 @@ jobs:
           aws-region: us-east-1
       - name: Terraform Install
         uses: hashicorp/setup-terraform@v1
-        run:  terraform --version
       - name: Terraform fmt
         id: fmt
-        run: terraform fmt
+        run: | 
+          terraform --version
+          terraform fmt
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/dev         
       - name: Terraform Init
