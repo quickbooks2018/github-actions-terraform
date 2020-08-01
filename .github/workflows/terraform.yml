@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        run: |
-         apt update -y
       - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
