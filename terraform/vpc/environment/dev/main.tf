@@ -7,6 +7,7 @@ provider "aws" {
 ###############
 resource "aws_s3_bucket" "backend" {
   bucket = "cloudgeeks-ca-backend"
+  region = "us-east-1"
   acl    = "private"
 
   tags = {
