@@ -16,7 +16,6 @@ jobs:
           aws-region: us-east-1
         run: |
           aws --version
-          aws s3api create-bucket --bucket cloudgeeks-ca-backend --region us-east-1
       - name: Terraform Install
         uses: hashicorp/setup-terraform@v1
       - name: Terraform fmt
