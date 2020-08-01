@@ -6,7 +6,6 @@ provider "aws" {
 # S3
 ###############
 resource "aws_s3_bucket" "backend" {
-  region = "us-east-1"
   bucket = "cloudgeeks-backend"
   acl    = "private"
 
