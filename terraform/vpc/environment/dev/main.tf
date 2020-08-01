@@ -2,6 +2,26 @@ provider "aws" {
   region = "us-east-1"
 }
 
+### Backend ###
+# S3
+###############
+resource "aws_s3_bucket" "backend" {
+  bucket = "cloudgeeks-ca-backend"
+  acl    = "private"
+
+  tags = {
+    Name        = "Terraform Backend"
+    Environment = "Dev"
+  }
+}
+
+terraform {
+  backend "s3" {
+    bucket = "cloudgeeks-ca-backend"
+  }
+}
+
+
 #####
 # Vpc
 #####
