@@ -13,7 +13,7 @@ variable "stage" {
 variable "name" {
   type        = string
   default     = ""
-  description = "Solution name, e.g. `app` or `jenkins`"
+  description = "Solution name, e.g. `app` or `wordpress`"
 }
 
 variable "delimiter" {
