@@ -25,7 +25,7 @@ resource "aws_vpc" "vpc" {
   tags = merge(
   module.label.tags,
   tomap(
-  {"Location", var.vpc-location}
+  {"Location" = var.vpc-location}
   )
   )
 }
