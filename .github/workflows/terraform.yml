@@ -3,7 +3,7 @@ on:
    push:
     branches: [master]
 jobs:
-  build:
+  plan:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Code
@@ -40,13 +40,49 @@ jobs:
         run: terraform plan -no-color
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/dev 
+  apply:
+    name: Apply
+    runs-on: ubuntu-20.04
+    needs: plan
+    environment: test
+	
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: AWS CLI
+        run: |
+          aws --version
+          aws s3api create-bucket --bucket khatrig-githubaction --region us-east-1
+      - name: Terraform Install
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform fmt
+        id: fmt
+        run: | 
+          terraform --version
+          terraform fmt
+        continue-on-error: true
+        working-directory: ./terraform/vpc/environment/dev         
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ./terraform/vpc/environment/dev         
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color  
+        working-directory: ./terraform/vpc/environment/dev       
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: true
+        working-directory: ./terraform/vpc/environment/dev   
       - name: Terraform Apply
         id: Apply
         run: terraform apply -auto-approve
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/dev
-      - name: Terraform Destroy
-        id: Destroy
-        run: terraform destroy -auto-approve
-        continue-on-error: true
-        working-directory: ./terraform/vpc/environment/dev 
