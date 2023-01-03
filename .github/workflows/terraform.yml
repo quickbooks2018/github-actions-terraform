@@ -47,6 +47,8 @@ jobs:
     environment:
         name: dev  
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
       - name: Terraform Apply
         run: terraform apply -auto-approve
         continue-on-error: true
