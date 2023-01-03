@@ -48,7 +48,6 @@ jobs:
         name: dev  
     steps:
       - name: Terraform Apply
-        id: Apply
         run: terraform apply -auto-approve
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/dev
