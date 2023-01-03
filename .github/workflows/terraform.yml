@@ -41,9 +41,9 @@ jobs:
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/dev 
   apply:
-	runs-on: ubuntu-20.04
-	needs: plan
-	environment: dev
+    runs-on: ubuntu-20.04
+    needs: plan
+    environment: dev
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
