@@ -44,13 +44,10 @@ jobs:
         id: Apply
         run: terraform apply -auto-approve
         continue-on-error: true
-        working-directory: ./terraform/vpc/environment/dev
-		
-jobs: 
- Prod:
+        working-directory: ./terraform/vpc/environment/dev		 
+  Prod:
     runs-on: ubuntu-20.04
 	env: test
-	
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
