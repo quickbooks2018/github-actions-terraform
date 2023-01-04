@@ -3,7 +3,7 @@ on:
    push:
     branches: [master]
 jobs:
-  Non-Prod:
+  plan:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Code
@@ -40,24 +40,20 @@ jobs:
         run: terraform plan -no-color
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/dev 
-      - name: Terraform Apply
-        id: Apply
-        run: terraform apply -auto-approve
-        continue-on-error: true
-        working-directory: ./terraform/vpc/environment/dev		 
-  Prod:
+  apply:
+    name: Apply
     runs-on: ubuntu-20.04
-    needs: Non-Prod
+    needs: plan
     environment: 
-      name: test
+	   name: test
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID1 }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY1 }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: AWS CLI
         run: |
@@ -84,7 +80,7 @@ jobs:
         id: plan
         run: terraform plan -no-color
         continue-on-error: true
-        working-directory: ./terraform/vpc/environment/dev 
+        working-directory: ./terraform/vpc/environment/dev   
       - name: Terraform Apply
         id: Apply
         run: terraform apply -auto-approve
