@@ -47,7 +47,9 @@ jobs:
         working-directory: ./terraform/vpc/environment/dev		 
   Prod:
     runs-on: ubuntu-20.04
-	env: test
+    needs: plan
+    environment: 
+	   name: test
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
