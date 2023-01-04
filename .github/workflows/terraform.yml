@@ -41,7 +41,12 @@ jobs:
         id: Apply
         run: terraform apply -auto-approve
         continue-on-error: true
-        working-directory: ./terraform/vpc/environment/dev		 
+        working-directory: ./terraform/vpc/environment/dev
+      - name: Terraform Destroy
+        id: Destroy
+        run: terraform destroy -auto-approve
+        continue-on-error: true
+        working-directory: ./terraform/vpc/environment/dev 		
   Prod:
     runs-on: ubuntu-20.04
     needs: Non-Prod
@@ -81,5 +86,10 @@ jobs:
       - name: Terraform Apply
         id: Apply
         run: terraform apply -auto-approve
+        continue-on-error: true
+        working-directory: ./terraform/vpc/environment/prod
+	   - name: Terraform Destroy
+        id: Destroy
+        run: terraform destroy -auto-approve
         continue-on-error: true
         working-directory: ./terraform/vpc/environment/prod
